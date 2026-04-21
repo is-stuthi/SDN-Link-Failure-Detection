@@ -71,6 +71,8 @@ mininet> dpctl dump-flows
 | Throughput   | ~27.6 Gbits/sec           | `iperf h1 h3`   |
 | Recovery     | 0% dropped (Post-Link Up) | `link s1 s2 up` |
 
+![Performance](Performance.png)
+
 ### Analysis
 
 The high throughput (~27.6 Gbits/sec) indicates that once the flow rules are installed in the switches (as seen in `dpctl dump-flows`), traffic is handled directly in the **data plane** without further controller intervention.
@@ -82,9 +84,14 @@ The high throughput (~27.6 Gbits/sec) indicates that once the flow rules are ins
 ### Normal vs. Failure
 
 * **Normal:**
+  
+![Normal](Normal.png)
+
   All hosts can communicate with each other (**0% packet loss**)
 
 * **Failure:**
+  
+![Link_down](Link_down.png)
 
 ```bash
 link s1 s2 down
@@ -93,15 +100,24 @@ link s1 s2 down
 Results in **66.7% packet loss**, as `h1` cannot reach `h2` or `h3`.
 
 * **Recovery:**
+  
+![Recovery](Recovery.png)
+
 ```bash
 link s1 s2 down
 ```
 Results in **0% packet loss**.
 
 ---
+## Controller 
 
+![Controller](Controller.png)
+
+The controller is up and running.
+
+---
 ### Flow Table Validation
-
+  ![Flow Table](Flow.png)
 Run:
 
 ```bash
